@@ -4,19 +4,21 @@ public class CanoInf : MonoBehaviour
 {
     public float maxTime;
     private float time;
-    public GameObject cano;
+
+    public GameObject cano; 
     GameObject canoClone;
-    public float dist;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    [Header("Configuração do Espaço entre Canos")]
+    [Range(1f, 6f)]
+    public float gap = 3f; 
     void Start()
     {
         CanoSpawner();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(time > maxTime)
+        if (time > maxTime)
         {
             CanoSpawner();
             time = 0;
@@ -27,7 +29,13 @@ public class CanoInf : MonoBehaviour
 
     void CanoSpawner()
     {
+        
         canoClone = Instantiate(cano);
-        canoClone.transform.position = transform.position + new Vector3(0,Random.Range(dist, -dist), 0);
+
+        
+        float yOffset = Random.Range(-gap, gap);
+
+        
+        canoClone.transform.position = transform.position + new Vector3(0, yOffset, 0);
     }
 }
